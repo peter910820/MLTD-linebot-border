@@ -31,10 +31,16 @@ foreach($DataBody['events'] as $Event)
             $mode_parmeter = substr($Event['message']['text'],-1);
             $Payload = $spider->spider($mode_parmeter, $Event);
             $handle = $tool->crul_handle($Payload, $ChannelAccessToken);
-        }elseif($Event['type'] == 'message' and preg_match("/^[e][v][e][n][t][-][a-z0-9-]{2}$/", $Event['message']['text'])){
+        }elseif($Event['type'] == 'message' and preg_match("/^[e][v][e][n][t][-][a-z]{2}$/", $Event['message']['text'])){
             $spider= new spider_class();
             $mode_parmeter = substr($Event['message']['text'],-1);
             $Payload = $spider->spider($mode_parmeter, $Event);
+            $handle = $tool->crul_handle($Payload, $ChannelAccessToken);
+        }elseif($Event['type'] == 'message' and preg_match("/^[e][v][e][n][t][-][a-z]{2}[-][0-9]*$/", $Event['message']['text'])){
+            $spider= new spider_class();
+            $mode_parmeter = substr($Event['message']['text'],6,2);
+            $rank = substr($Event['message']['text'],9);
+            $Payload = $spider->boder_single($mode_parmeter, $rank, $Event);
             $handle = $tool->crul_handle($Payload, $ChannelAccessToken);
         }
     

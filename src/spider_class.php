@@ -45,4 +45,42 @@ class spider_class{
         
         return $Payload;
     }
+    function boder_single($mode_parmeter, $rank, $Event){
+        switch($mode_parmeter){
+            case "pt":
+                $parmeter = "eventPoint";
+                $title_parmeter = "PT榜線";
+            break;
+            case "hs":
+                $parmeter = "highScore";
+                $title_parmeter = "高分榜線";
+            break;
+        }
+        $handle = fopen("https://api.matsurihi.me/mltd/v1/events/220/rankings/logs/".$parmeter."/$rank?prettyPrint=true","rb");
+        $content = "";
+        $text = "";
+        while (!feof($handle)) {
+            $content .= fread($handle, 10000);
+        }
+        fclose($handle);
+        $content = json_decode($content,true);
+        $text .= "======================\n";
+        $text .= $title_parmeter."  (名次/分數/半小時增加量)\n";
+        foreach($content as $rank){
+            $gap = $rank['data'][count($rank['data'])-1]['score']-$rank['data'][count($rank['data'])-2]['score'];
+            $text .= $rank['rank'].'位   '.$rank['data'][count($rank['data'])-1]['score']."pt"."  (+$gap".")\n";
+        }
+        $text .= "======================";
+        $Payload = [
+            'replyToken' => $Event['replyToken'],
+            'messages' => [
+                [
+                    'type' => 'text',
+                    'text' => $text
+                ]
+            ]
+        ];
+        
+        return $Payload;
+    }
 }
