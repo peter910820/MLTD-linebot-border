@@ -22,18 +22,4 @@ class tool{
         return $Result;
     }
 
-    function sat($Event){
-        $Payload = [
-            'replyToken' => $Event['replyToken'],
-            'messages' => [
-                [
-                    'type' => 'text',
-                    'text' => '安安優~'
-                ]
-            ]
-        ];
-        
-        return $Payload;
-    }
-
 }
