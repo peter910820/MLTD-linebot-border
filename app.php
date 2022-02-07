@@ -31,6 +31,10 @@ foreach($DataBody['events'] as $Event){
         $rank = substr($Event['message']['text'],9);
         $Payload = $spider->boder_single($mode_parmeter, $rank, $Event, $eventData);
         $handle = $tool->crul_handle($Payload, $ChannelAccessToken);
+    }elseif($Event['type'] == 'message' and $Event['message']['text'] =='$version'){
+        $content = $spider->version($Event);
+        $Payload = $content;
+        $handle = $tool->crul_handle($Payload, $ChannelAccessToken);
     }elseif($Event['type'] == 'message' and $Event['message']['text'] =='test'){
         $content = $spider->sat($Event);
         $Payload = $content;

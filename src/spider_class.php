@@ -111,7 +111,27 @@ class spider_class{
         array_push($eventData, $id, $name, $beginDate, $endDate);
         return $eventData;
     }
-
+    function version($Event){
+        $handle = fopen("https://api.matsurihi.me/mltd/v1/version/assets","rb");
+        $content = "";
+        $text = "";
+        while (!feof($handle)) {
+            $content .= fread($handle, 10000);
+        }
+        fclose($handle);
+        $content = json_decode($content,true);
+        $text .= $content[count($content)-1]['version'];
+        $Payload = [
+            'replyToken' => $Event['replyToken'],
+            'messages' => [
+                [
+                    'type' => 'text',
+                    'text' =>  $text
+                ]
+            ]
+        ];
+        return $Payload;
+    }
     function sat($Event){
         $Payload = [
             'replyToken' => $Event['replyToken'],
