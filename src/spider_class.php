@@ -1,6 +1,5 @@
 <?php
 
-
 class spider_class{   
     function spider($mode_parmeter, $Event, $eventData){
         switch($mode_parmeter){
