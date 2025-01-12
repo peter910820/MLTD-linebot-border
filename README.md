@@ -1,8 +1,8 @@
-# MLTD_LineBot_Border
+# MLTD-linebot-border
 使用PHP開發的LineBot,用於查MLTD日版榜線
 
 ## LineBot URL
-![URL](https://github.com/peter910820/MLTD_LineBot_Border/blob/main/QRcode.png)
+![img](./QRcode.png)
 
 ## 指令集
 
